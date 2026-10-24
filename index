@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una invitación para Mirely 🍣</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,700;1,500&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbf3ea; --paper:#fffaf4; --ink:#2b2320; --soft:#7a6a62;
+    --red:#d64545; --salmon:#f2876b; --rice:#ffffff; --nori:#1f2a24; --gold:#e8b04b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; color:var(--ink); overflow-x:hidden;
+    background:var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(242,135,107,.18) 0 120px, transparent 121px),
+      radial-gradient(circle at 85% 80%, rgba(214,69,69,.12) 0 160px, transparent 161px);
+    padding:24px 16px;
+  }
+
+  /* ---------- Sobre ---------- */
+  .envelope-wrap{ text-align:center; transition:opacity .5s, transform .5s }
+  .envelope-wrap.hide{ opacity:0; transform:scale(.9); pointer-events:none; position:absolute }
+  .envelope{
+    width:min(320px,85vw); aspect-ratio:3/2; position:relative; margin:0 auto 22px;
+    background:var(--red); border-radius:10px; cursor:pointer;
+    box-shadow:0 18px 40px rgba(120,40,30,.25); animation:float 3s ease-in-out infinite;
+  }
+  .envelope::before{ /* solapa */
+    content:""; position:absolute; inset:0; border-radius:10px;
+    background:linear-gradient(to bottom right, transparent 49.5%, #b83636 50%) left/50% 100% no-repeat,
+               linear-gradient(to bottom left, transparent 49.5%, #b83636 50%) right/50% 100% no-repeat;
+  }
+  .envelope::after{
+    content:""; position:absolute; left:0; right:0; top:0; height:60%;
+    background:#c43d3d; clip-path:polygon(0 0,100% 0,50% 100%); border-radius:10px 10px 0 0;
+  }
+  .seal{
+    position:absolute; left:50%; top:52%; transform:translate(-50%,-50%); z-index:2;
+    width:62px; height:62px; border-radius:50%; background:var(--gold);
+    display:grid; place-items:center; font-size:30px; box-shadow:0 4px 10px rgba(0,0,0,.2);
+  }
+  .tap{ font-weight:800; color:var(--soft); letter-spacing:.5px }
+  .tap span{ color:var(--red) }
+  @keyframes float{ 50%{ transform:translateY(-8px) rotate(-1deg) } }
+
+  /* ---------- Tarjeta ---------- */
+  .card{
+    display:none; width:min(440px,100%); background:var(--paper); border-radius:22px;
+    padding:34px 26px 28px; text-align:center; position:relative;
+    box-shadow:0 24px 60px rgba(90,50,30,.18);
+    border:2px solid rgba(214,69,69,.15);
+  }
+  .card.show{ display:block; animation:pop .6s cubic-bezier(.2,1.4,.4,1) }
+  @keyframes pop{ from{ opacity:0; transform:translateY(30px) scale(.92) } }
+
+  .hanko{
+    position:absolute; top:18px; right:18px; width:46px; height:46px; border-radius:8px;
+    border:2.5px solid var(--red); color:var(--red); font-weight:800; font-size:11px;
+    display:grid; place-items:center; transform:rotate(8deg); opacity:.75; line-height:1.1;
+  }
+  .hi{ font-family:'Fraunces',serif; font-style:italic; color:var(--soft); font-size:18px }
+  h1{ font-family:'Fraunces',serif; font-size:clamp(30px,8vw,40px); line-height:1.1; margin:6px 0 4px }
+  h1 em{ color:var(--red); font-style:normal }
+
+  /* makis */
+  .makis{ display:flex; justify-content:center; gap:12px; margin:22px 0 18px }
+  .maki{
+    width:58px; height:58px; border-radius:50%; background:var(--nori); position:relative;
+    animation:bob 2.4s ease-in-out infinite;
+  }
+  .maki:nth-child(2){ animation-delay:.3s } .maki:nth-child(3){ animation-delay:.6s }
+  .maki::before{ content:""; position:absolute; inset:6px; border-radius:50%; background:var(--rice) }
+  .maki::after{ content:""; position:absolute; inset:19px; border-radius:50%; background:var(--salmon);
+    box-shadow:inset -3px -3px 0 rgba(0,0,0,.08) }
+  .maki.avo::after{ background:#8bbf5a } .maki.tuna::after{ background:var(--red) }
+  @keyframes bob{ 50%{ transform:translateY(-6px) } }
+
+  .msg{ font-size:16.5px; line-height:1.6; color:#4a3e39; margin-bottom:22px }
+
+  .details{ display:grid; gap:10px; margin-bottom:26px; text-align:left }
+  .row{
+    display:flex; align-items:center; gap:14px; background:#fff; border-radius:14px;
+    padding:12px 16px; border:1px solid #f0e2d6;
+  }
+  .ico{ font-size:24px; width:32px; text-align:center }
+  .row small{ display:block; color:var(--soft); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.8px }
+  .row b{ font-size:16px }
+
+  .q{ font-family:'Fraunces',serif; font-size:21px; margin-bottom:16px }
+  .btns{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; min-height:56px; position:relative }
+  button{
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:16px; border:none; cursor:pointer;
+    border-radius:999px; padding:14px 28px; transition:transform .15s, box-shadow .15s;
+  }
+  .yes{ background:var(--red); color:#fff; box-shadow:0 8px 20px rgba(214,69,69,.35) }
+  .yes:hover{ transform:translateY(-2px) scale(1.04) }
+  .no{ background:#efe4da; color:var(--soft); position:relative; transition:all .25s }
+
+  .sign{ margin-top:24px; font-family:'Fraunces',serif; font-style:italic; color:var(--soft) }
+
+  /* respuesta */
+  .done{ display:none }
+  .done.show{ display:block; animation:pop .6s cubic-bezier(.2,1.4,.4,1) }
+  .done .big{ font-size:64px; margin:6px 0 }
+  .done h2{ font-family:'Fraunces',serif; font-size:30px; color:var(--red); margin-bottom:8px }
+  .done p{ color:#4a3e39; line-height:1.6 }
+
+  .fall{ position:fixed; top:-50px; font-size:28px; pointer-events:none; z-index:50;
+    animation:drop linear forwards }
+  @keyframes drop{ to{ transform:translateY(115vh) rotate(540deg) } }
+</style>
+</head>
+<body>
+
+  <!-- Sobre -->
+  <div class="envelope-wrap" id="envWrap">
+    <div class="envelope" id="envelope" role="button" aria-label="Abrir invitación">
+      <div class="seal">🍣</div>
+    </div>
+    <p class="tap">Tienes una invitación, <span>Mirely</span> · toca para abrir</p>
+  </div>
+
+  <!-- Tarjeta -->
+  <div class="card" id="card">
+    <div class="hanko">お<br>はし</div>
+
+    <div id="invite">
+      <p class="hi">Hola, Mirely…</p>
+      <h1>¿Vamos por <em>makis</em>?</h1>
+
+      <div class="makis">
+        <div class="maki"></div><div class="maki avo"></div><div class="maki tuna"></div>
+      </div>
+
+      <p class="msg">Tengo un antojo serio de makis y no se me ocurre mejor compañía.
+        Saliendo de tus clases te paso la voz y nos vamos a Ohashi. 🥢</p>
+
+      <div class="details">
+        <div class="row"><div class="ico">📅</div><div><small>Cuándo</small><b>Miércoles 28 de octubre</b></div></div>
+        <div class="row"><div class="ico">⏰</div><div><small>Hora</small><b>Apenas salgas de clases</b></div></div>
+        <div class="row"><div class="ico">📍</div><div><small>Dónde</small><b>Ohashi</b></div></div>
+      </div>
+
+      <p class="q">¿Te animas?</p>
+      <div class="btns" id="btns">
+        <button class="yes" id="yes">¡Sí, vamos! 🍣</button>
+        <button class="no" id="no">No…</button>
+      </div>
+    </div>
+
+    <div class="done" id="done">
+      <div class="big">🥳</div>
+      <h2>¡Trato hecho!</h2>
+      <p>Miércoles 28, luego de tus clases.<br>Makis en Ohashi. Yo me encargo del resto. 😄</p>
+    </div>
+
+    <p class="sign">— Diego</p>
+  </div>
+
+<script>
+  const envWrap = document.getElementById('envWrap');
+  const card = document.getElementById('card');
+
+  document.getElementById('envelope').addEventListener('click', () => {
+    envWrap.classList.add('hide');
+    setTimeout(() => { envWrap.style.display = 'none'; card.classList.add('show'); }, 400);
+  });
+
+  // El botón "No" se escapa y se encoge
+  const no = document.getElementById('no');
+  const yes = document.getElementById('yes');
+  const frases = ['¿Segura?', 'Piénsalo bien…', 'Hay makis 🥺', 'Ni modo, es sí', '¿Y si sí?'];
+  let tries = 0, yesScale = 1;
+
+  function escapar(e){
+    e.preventDefault();
+    tries++;
+    const x = (Math.random() - .5) * 220;
+    const y = (Math.random() - .5) * 90;
+    no.style.transform = `translate(${x}px, ${y}px) scale(${Math.max(.45, 1 - tries*.1)})`;
+    no.textContent = frases[(tries - 1) % frases.length];
+    yesScale = Math.min(1.5, yesScale + .08);
+    yes.style.transform = `scale(${yesScale})`;
+  }
+  no.addEventListener('mouseenter', escapar);
+  no.addEventListener('touchstart', escapar, {passive:false});
+  no.addEventListener('click', escapar);
+
+  // Respuesta "Sí"
+  yes.addEventListener('click', () => {
+    document.getElementById('invite').style.display = 'none';
+    document.getElementById('done').classList.add('show');
+    const emojis = ['🍣','🍱','🥢','🍤','💛','🍙'];
+    for (let i = 0; i < 40; i++){
+      const s = document.createElement('div');
+      s.className = 'fall';
+      s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.animationDuration = (2.5 + Math.random()*2.5) + 's';
+      s.style.animationDelay = (Math.random()*1.2) + 's';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 6500);
+    }
+  });
+</script>
+</body>
+</html>
